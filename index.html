@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Twahir Sudy | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+      <!-- Rellax.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js"></script>
+        <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+            .token-keyword { color: #c792ea; }
+    .token-type { color: #82aaff; }
+    .token-string { color: #c3e88d; }
+    .token-comment { color: #546e7a; font-style: italic; }
+    .token-number { color: #f78c6c; }
+    .token-operator { color: #ff5370; }
+    .token-punctuation { color: #89ddff; }
+    .token-function { color: #82aaff; }
+    .token-parameter { color: #ffcb6b; }
+    .token-default { color: #eeffff; }
+    .token-component { color: #89ddff; }
+    .token-button { color: #80cbc4; }
+
+
+        /* Custom styles */
+    .parallax-section {
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .parallax-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    
+    .content-wrapper {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .btn-parallax {
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-style: preserve-3d;
+    }
+    
+    .btn-parallax:hover {
+      transform: translateY(-5px) scale(1.02);
+    }
+    
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        hologram: {
+                            blue: '#00f0ff',
+                            pink: '#ff00f0',
+                            purple: '#b400ff',
+                        },
+                        neu: {
+                            dark: '#0f0f15',
+                            mid: '#1a1a25',
+                            light: '#252535',
+                        }
+                    },
+                    fontFamily: {
+                        'orbitron': ['Orbitron', 'sans-serif'],
+                        'rajdhani': ['Rajdhani', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 6s infinite cubic-bezier(0.4, 0, 0.6, 1)',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            'from': { 'text-shadow': '0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00f0ff, 0 0 20px #00f0ff' },
+                            'to': { 'text-shadow': '0 0 10px #fff, 0 0 20px #fff, 0 0 30px #00f0ff, 0 0 40px #00f0ff' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <audio id="scroll-sound" src="scroll.wav" preload="auto"></audio>
+
+</head>
+<body class="bg-neu-dark min-h-screen font-rajdhani text-gray-300 overflow-x-hidden">
+    <!-- Holographic UI Elements -->
+    <div class="fixed inset-0 pointer-events-none">
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-hologram-blue opacity-10 blur-3xl"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-96 h-96 rounded-full bg-hologram-pink opacity-10 blur-3xl"></div>
+        <div class="absolute top-2/3 right-1/2 w-80 h-80 rounded-full bg-hologram-purple opacity-10 blur-3xl"></div>
+        
+        <!-- Grid pattern -->
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==')] opacity-30"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="relative py-12 z-10">
+        <div>
+        <!-- Header with Holographic Nav -->
+        <header class="flex flex-col md:flex-row justify-between items-center mb-16 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-6 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-orbitron font-bold bg-clip-text text-transparent bg-gradient-to-r from-hologram-blue via-hologram-purple to-hologram-pink">
+                    TWAHIR SUDY
+                </h1>
+                <p class="text-sm text-hologram-blue tracking-widest mt-1"> FUTURE-PROOF SOLUTIONS SINCE 2025</p>
+            </div>
+            
+            <nav class="flex space-x-1 bg-neu-light rounded-full p-1 border border-gray-800 shadow-lg">
+                <button class="px-4 py-2 rounded-full bg-neu-mid text-hologram-blue font-medium text-sm tracking-wider hover:bg-gradient-to-r from-hologram-blue/20 to-hologram-purple/20 transition-all duration-300">
+                    <a href="#home">HOME</a>
+                </button>
+                <button class="px-4 py-2 rounded-full text-gray-400 hover:text-white text-sm tracking-wider hover:bg-neu-mid transition-all duration-300">
+                    <a href="#code">CODE</a>
+                </button>
+                <button class="px-4 py-2 rounded-full text-gray-400 hover:text-white text-sm tracking-wider hover:bg-neu-mid transition-all duration-300">
+                    <a href="#skills">SKILLS</a>
+                </button>
+                <button class="px-4 py-2 rounded-full text-gray-400 hover:text-white text-sm tracking-wider hover:bg-neu-mid transition-all duration-300">
+                    <a href="#contact">CONTACT</a>
+                </button>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="mb-24 relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" id="home">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1">
+                    <h2 class="text-3xl md:text-5xl font-orbitron font-bold mb-6 text-white">
+                        <span class="text-hologram-blue">#</span> FULLSTACK DEVELOPER
+                    </h2>
+                    <p class="text-lg mb-8 leading-relaxed opacity-90">
+                        I'm with passion of creating innovative and efficient web applications. My expertise lies in building scalable solutions using modern technologies like Qwik, Elysia, and TypeScript.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <button class="px-8 py-3 bg-gradient-to-r from-hologram-blue to-hologram-purple text-neu-dark font-bold rounded-full hover:shadow-lg hover:shadow-hologram-blue/30 transition-all duration-300 flex items-center">
+                            <span><a href="#work">EXPLORE WORK</a></span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <button class="px-8 py-3 border-2 border-hologram-blue text-hologram-blue font-bold rounded-full hover:bg-hologram-blue/10 transition-all duration-300">
+                            <a href="/CV_Twahir.pdf" download><i class="fas fa-download ml-2"></i> DOWNLOAD CV</a>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="order-1 lg:order-2 relative">
+                    <!-- Holographic Avatar -->
+                    <div class="relative w-full aspect-square max-w-md mx-auto">
+                        <div class="absolute inset-0 bg-gradient-to-br from-hologram-blue/30 to-hologram-purple/20 rounded-2xl rotate-6"></div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-hologram-purple/30 to-hologram-pink/20 rounded-2xl -rotate-6"></div>
+                        <div class="relative rounded-2xl overflow-hidden border-2 border-gray-700/50 bg-neu-mid/80 backdrop-blur-sm">
+                            <div class="aspect-square bg-[url('/twahir.jpg')] bg-cover bg-center mix-blend-luminosity opacity-90"></div>
+                        </div>
+                        <div class="absolute -bottom-6 -right-6 bg-neu-light px-4 py-2 rounded-full border border-gray-700 shadow-lg">
+                        <span class="font-orbitron font-bold bg-clip-text text-transparent bg-gradient-to-r from-hologram-blue via-hologram-purple to-hologram-pink">
+                            BlackCoder
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Skills Section with Parallax -->
+        <section id="skills" class="relative py-20 mb-20 parallax trigger-sound" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop');" id="skills">
+            <div class="absolute inset-0 bg-slate-800/70"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                            <div class="flex items-center mb-10">
+                <h3 class="text-2xl md:text-3xl font-orbitron font-bold text-white">
+                    <span class="text-hologram-blue">*</span> TECH STACK
+                </h3>
+                <div class="flex-1 h-px bg-gradient-to-r from-hologram-blue/30 via-hologram-purple/30 to-hologram-pink/30 ml-6"></div>
+            </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                    <!-- Skill 1 -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
+                            <img src="/qwik.webp" alt="Qwik" />
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Qwik</h3>
+                        <div class="w-full bg-slate-700 rounded-full h-2">
+                            <div class="bg-purple-500 h-2 rounded-full" style="width: 90%"></div>
+                        </div>
+                        <p class="pt-2">90%</p>
+                    </div>
+                    
+                    <!-- Skill 2 -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
+                            <img src="/elysia.webp" alt="Elysia" />
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Eysia</h3>
+                        <div class="w-full bg-slate-700 rounded-full h-2">
+                            <div class="bg-gray-300 h-2 rounded-full" style="width: 91%"></div>
+                        </div>
+                        <p class="pt-2">91%</p>
+                    </div>
+                    
+                    <!-- Skill 3 -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
+                            <img src="/Typescript.svg" alt="TypeScript" />
+
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">TypeScript</h3>
+                        <div class="w-full bg-slate-700 rounded-full h-2">
+                            <div class="bg-blue-500 h-2 rounded-full" style="width: 95%"></div>
+                        </div>
+                        <p class="pt-2">95%</p>
+                    </div>
+                    
+                    <!-- Skill 4 -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
+                            <img src="/drizzle.webp" alt="Drizzle-ORM" />
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Drizzle ORM</h3>
+                        <div class="w-full bg-slate-700 rounded-full h-2">
+                            <div class="bg-lime-400 h-2 rounded-full" style="width: 97%"></div>
+                            <p class="pt-2">97%</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Skill 5 -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
+                            <img src="/react-native.webp" alt="React Native" />
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">React Native</h3>
+                        <div class="w-full bg-slate-700 rounded-full h-2">
+                            <div class="bg-cyan-500 h-2 rounded-full" style="width: 70%"></div>
+                        </div>
+                        <p class="pt-2">70%</p>
+                    </div>
+
+                    <!-- Skill 6 -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
+                            <img src="/flutter.svg" alt="Flutter" />
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Flutter</h3>
+                        <div class="w-full bg-slate-700 rounded-full h-2">
+                            <div class="bg-gray-50 h-2 rounded-full" style="width: 40%"></div>
+                        </div>
+                        <p class="pt-2">40%</p>
+                    </div>
+
+                    <!-- Skill 7 -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
+                            <img src="/nextjs.webp" alt="Next.js" />
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Next.js</h3>
+                        <div class="w-full bg-slate-700 rounded-full h-2">
+                            <div class="bg-gray-400 h-2 rounded-full" style="width: 70%"></div>
+                        </div>
+                        <p class="pt-2">70%</p>
+                    </div>
+
+                    <!-- Skill 8 -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
+                            <img src="/Python.svg" alt="Python" />
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Python</h3>
+                        <div class="w-full bg-slate-700 rounded-full h-2">
+                            <div class="bg-yellow-300 h-2 rounded-full" style="width: 90%"></div>
+                        </div>
+                        <p class="pt-2">90%</p>
+                    </div>
+
+                    <!-- Skill 9 -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
+                            <img src="/tailwindcss.webp" alt="Tailwind CSS" />
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Tailwind CSS</h3>
+                        <div class="w-full bg-slate-700 rounded-full h-2">
+                            <div class="bg-cyan-700 h-2 rounded-full" style="width: 80%"></div>
+                        </div>
+                        <p class="pt-2">80%</p>
+                    </div>
+
+                    <!-- Skill 10 -->
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
+                            <img src="/ai.webp" alt="AI/ML" />
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">AI/ML</h3>
+                        <div class="w-full bg-slate-700 rounded-full h-2">
+                            <div class="bg-rose-700 h-2 rounded-full" style="width: 12%"></div>
+                        </div>
+                        <p class="pt-2">12%</p>
+                    </div>
+        </section>
+                    
+
+        <!-- Projects Section -->
+        <section class="mb-24 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 trigger-sound" id="work">
+            <div class="flex items-center mb-10">
+                <h3 class="text-2xl md:text-3xl font-orbitron font-bold text-white">
+                    <span class="text-hologram-blue">$</span> RECENT PROJECTS
+                </h3>
+                <div class="flex-1 h-px bg-gradient-to-r from-hologram-blue/30 via-hologram-purple/30 to-hologram-pink/30 ml-6"></div>
+            </div>
+            
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                <!-- Project 1 -->
+                <div class="group relative overflow-hidden rounded-xl border border-slate-800 hover:border-blue-400/30 transition-all duration-500">
+                    <div class="h-60 overflow-hidden">
+                        <img src="/school.webp" alt="Project 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-slate-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <h3 class="text-xl font-bold mb-2">School management system</h3>
+                        <p class="text-slate-300 mb-4">A comprehensive platform for managing school operations, including student enrollment, attendance tracking, and grade management.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs">React</span>
+                            <span class="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs">Node.js</span>
+                            <span class="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs">Elysia.js</span>
+                        </div>
+                        <a href="https://www.highercareer.academy" target="_blank" class="text-blue-400 hover:text-blue-300 inline-flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="group relative overflow-hidden rounded-xl border border-slate-800 hover:border-blue-400/30 transition-all duration-500">
+                    <div class="h-60 overflow-hidden">
+                        <img src="/system.webp" alt="Project 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-slate-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <h3 class="text-xl font-bold mb-2">Business Management System</h3>
+                        <p class="text-slate-300 mb-4">A comprehensive platform for managing business operations, including inventory management, sales tracking, and customer relationship management.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs">Qwik</span>
+                            <span class="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs">Elysia.js</span>
+                            <span class="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs">Tailwind CSS</span>
+                        </div>
+                        <a href="https://www.mypostech.store" target="_blank" class="text-blue-400 hover:text-blue-300 inline-flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center px-6 py-3 border border-blue-400 text-blue-400 hover:bg-blue-400/10 font-bold rounded-lg transition-all duration-300">
+                    View All Projects <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+        </section>
+
+          <!-- Contact us Section -->
+        <section class="parallax-section trigger-sound" id="contact">
+            <!-- Background with strong parallax -->
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" 
+                alt="Ocean background"
+                class="parallax-bg rellax" 
+                data-rellax-speed="-5">
+            
+            <!-- Gradient overlay -->
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-900/70 to-purple-900/50 rellax" 
+                data-rellax-speed="-2"></div>
+            
+            <!-- Floating elements -->
+            <div class="content-wrapper px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="rellax" data-rellax-speed="1">
+                    <div class="flex items-center mb-10">
+                        <h3 class="text-2xl md:text-3xl font-orbitron font-bold text-white">
+                            <span class="text-hologram-blue">//</span> CONNECT WITH ME
+                        </h3>
+                        <div class="flex-1 h-px bg-gradient-to-r from-gray-900 via-gray-600 to-hologram-pink/30 ml-6"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                        <div>
+                            <h4 class="text-xl font-orbitron font-bold text-white mb-6">Direct Mind Link Established</h4>
+                            <p class="opacity-80 mb-8 leading-relaxed">
+                                I'm currently available for freelance work. If you have any questions or want to start a project together, don't hesitate to reach out to me.
+                            </p>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-neu-light flex items-center justify-center mr-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-hologram-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <span class="font-medium">twahirsudy3@gmail.com</span>
+                                </div>
+                                
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-neu-light flex items-center justify-center mr-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-hologram-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                        </svg>
+                                    </div>
+                                    <span class="font-medium">+255 67 429 1587</span>
+                                </div>
+                                
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-neu-light flex items-center justify-center mr-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-hologram-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </div>
+                                    <span class="font-medium">Dar es Salaam, Tanzania.</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-neu-mid/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-800">
+                            <form class="space-y-6">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2 text-gray-300">YOUR NAME</label>
+                                    <input type="text" class="w-full px-4 py-3 bg-neu-light border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-hologram-blue focus:border-transparent text-white placeholder-gray-500" placeholder="Enter your full name">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium mb-2 text-gray-300">YOUR EMAIL</label>
+                                    <input type="email" class="w-full px-4 py-3 bg-neu-light border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-hologram-blue focus:border-transparent text-white placeholder-gray-500" placeholder="somebody@gmail.com">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium mb-2 text-gray-300">MESSAGE</label>
+                                    <textarea rows="4" class="w-full px-4 py-3 bg-neu-light border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-hologram-blue focus:border-transparent text-white placeholder-gray-500" placeholder="Transmit your thoughts..."></textarea>
+                                </div>
+                                
+                                <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-hologram-blue to-hologram-purple text-neu-dark font-bold rounded-lg hover:shadow-lg hover:shadow-hologram-blue/30 transition-all duration-300">
+                                    INITIATE CONVERSATION
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+            </div>
+        </section>
+
+          <!-- my Code  -->
+        <section id="code" class="py-20 trigger-sound" style="background: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?fit=crop&w=1950&q=80')">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
+                    <span class="text-hologram-blue">#</span> CODING ...
+                </h2>
+                <p class="text-center text-gray-400 mb-6">Click on code below to get sound effect ...</p>
+                
+                <div class="max-w-4xl mx-auto bg-gray-900 rounded-xl overflow-hidden border border-gray-800 shadow-2xl">
+                <div class="flex items-center px-4 py-3 bg-gray-800 border-b border-gray-700">
+                    <div class="flex space-x-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <div class="ml-4 text-sm text-gray-400">qwik-App.tsx</div>
+                </div>
+                
+                <div id="code-container" class="p-6 fira text-sm md:text-base" ref="code-container">
+                    <pre class="overflow-x-auto">
+                    <span id="displayed-code" class="whitespace-pre"></span>
+                    <span id="cursor" class="inline-block w-2 h-6 bg-cyan-400 ml-1 opacity-100"></span>
+                    </pre>
+                </div>
+                
+                <div class="px-6 py-4 bg-gray-800 border-t border-gray-700 text-xs text-gray-400 flex justify-between">
+                    <div>Qwik + Elysia + TypeScript</div>
+                    <div>Interface</div>
+                </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-24 pt-8 border-t border-gray-800 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-2xl font-orbitron font-bold bg-clip-text text-transparent bg-gradient-to-r from-hologram-blue via-hologram-purple to-hologram-pink">
+                        Twahir Sudy
+                    </h2>
+                    <p class="text-xs text-gray-500 mt-1">© 2025. All rights reserved.</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-hologram-blue transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                        </svg>
+                    </a>
+                    <!-- linkedin -->
+                    <a href="https://www.linkedin.com/in/twahir-sudy-ab0620270/" target="_blank" class="text-gray-400 hover:text-hologram-purple transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z" />
+                        </svg>
+                    </a>
+                    <!-- instagram  -->
+                    <a href="https://www.instagram.com/blackcoder_21/" class="text-gray-400 hover:text-hologram-pink transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </a>
+                    <!-- github  -->
+                    <a href="https://github.com/twahir21?tab=repositories" target="_blank" class="text-gray-400 hover:text-hologram-blue transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Floating Tech Elements -->
+    <div class="fixed bottom-8 right-8 z-50">
+        <div class="animate-float">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-hologram-blue to-hologram-purple flex items-center justify-center shadow-lg shadow-hologram-blue/30">
+            <a href="https://wa.me/255674291587" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                </svg>
+            </a>
+            </div>
+        </div>
+    </div>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        const sound = document.getElementById('scroll-sound');
+
+        // Play sound only if allowed
+        function playScrollSound() {
+        // Restart the audio if it's already playing
+        sound.currentTime = 0;
+        sound.play().catch((err) => {
+            console.warn('Audio blocked until user interacts');
+        });
+        }
+
+        // Trigger when scrolling to specific sections
+        document.querySelectorAll('.trigger-sound').forEach((section) => {
+        ScrollTrigger.create({
+            trigger: section,
+            start: 'top 80%',
+            onEnter: () => playScrollSound(),
+        });
+        });
+
+        // Typing effect
+          const CODE_SNIPPETS = [
+    `// Qwik component with API logic
+import { $, component$, useContext, useStore } from '@builder.io/qwik';
+import { CrudService } from '~/routes/api/base/oop';
+
+ const sendData = $(async () => {
+    const newAPi = new CrudService<{
+      id?: string; amountPaid: number, customerId: string; debtId: string 
+    }>("pay-debt");
+});
+
+  return (
+    <div class="h-auto w-auto flex items-center">
+      {/* Trigger Button */}
+      <button
+        onClick$={() => (state.showPopup = true)}
+        class="mt-3 text-sm  bg-teal-600 text-white py-1.5 px-4 rounded-md self-start"
+      > 
+        Ongeza Malipo
+      </button> 
+    </div> 
+    )};
+    );`,
+
+    `// Elysia API Logic
+import { Elysia } from 'elysia';
+import cookie from '@elysiajs/cookie';
+
+export const hashPassword = async (password: string): Promise <string> => {
+    try {
+        const hash = await argon2.hash(password, {
+            type: argon2.argon2id, // Best for general-purpose use
+            memoryCost: 2 ** 16,   // 64MB RAM (Higher = more secure)
+            timeCost: 12,           // Number of iterations
+            parallelism: 2         // Parallel processing (Adjust for CPU)
+        });
+        return hash;
+    } catch (err) {
+        console.error("Error hashing password:", err);
+        throw new Error ("Failed to hash the password");
+    }
+}
+
+
+export const authPlugin = new Elysia()
+    .use(cookie())
+    .use(jwt({ name: 'jwt', secret: JWT_SECRET }))
+    .get("/customers", async ({ jwt, cookie, headers, query }) => {
+        const { userId, shopId } = await extractId({ jwt, cookie });
+        if (!shopId || !userId) return;
+
+        
+        return await customerGet({ userId, shopId, headers, query });
+    })}`
+  ];
+
+  // Token types with their corresponding classes
+  const TOKEN_TYPES = {
+    keyword: 'token-keyword',
+    type: 'token-type',
+    string: 'token-string',
+    comment: 'token-comment',
+    number: 'token-number',
+    operator: 'token-operator',
+    punctuation: 'token-punctuation',
+    function: 'token-function',
+    parameter: 'token-parameter',
+    default: 'token-default',
+    component: 'token-component',
+    button: 'token-button'
+  };
+
+  // Highlight code by breaking it into tokens
+  function highlightCode(code) {
+    const tokenRegex = /(\/\/.*|\/\*[\s\S]*?\*\/|".*?"|'.*?'|`[\s\S]*?`|\b(import|from|export|default|const|let|var|function|class|extends|implements|interface|type|enum|async|await|return|if|else|for|while|do|switch|case|break|continue|try|catch|finally|throw|new|this|super|void|typeof|instanceof|in|of|as|boolean|number|string|any|void|null|undefined|true|false)\b|\d+\.?\d*|=>|\.\.\.|[{}()\];,:.<>+\-*/%&|~=!?@]|\w+(?=\()|\w+)/g;
+    
+    let match;
+    let lastIndex = 0;
+    let result = '';
+    
+    while ((match = tokenRegex.exec(code)) !== null) {
+      if (match.index > lastIndex) {
+        result += `<span class="${TOKEN_TYPES.default}">${escapeHtml(code.substring(lastIndex, match.index))}</span>`;
+      }
+      
+      const token = match[0];
+      let tokenClass = TOKEN_TYPES.default;
+      
+      if (/^\/\/|\/\*/.test(token)) {
+        tokenClass = TOKEN_TYPES.comment;
+      } else if (/^["'`]/.test(token)) {
+        tokenClass = TOKEN_TYPES.string;
+      } else if (/^(import|from|export|default|const|let|var|function|class|extends|implements|interface|type|enum|async|await|return|if|else|for|while|do|switch|case|break|continue|try|catch|finally|throw|new|this|super|void|typeof|instanceof|in|of|as)$/.test(token)) {
+        tokenClass = TOKEN_TYPES.keyword;
+      } else if (/^(boolean|number|string|any|void|null|undefined|true|false)$/.test(token)) {
+        tokenClass = TOKEN_TYPES.type;
+      } else if (/^\d+\.?\d*$/.test(token)) {
+        tokenClass = TOKEN_TYPES.number;
+      } else if (/^(=>|\.\.\.|[.<>+\-*/%&|~=!?@])$/.test(token)) {
+        tokenClass = TOKEN_TYPES.operator;
+      } else if (/^[{}()\];,:]$/.test(token)) {
+        tokenClass = TOKEN_TYPES.punctuation;
+      } else if (/\w+(?=\()/.test(match[0])) {
+        tokenClass = TOKEN_TYPES.function;
+      } else if (/^(component|useVisibleTask)$/.test(token)) {
+        tokenClass = TOKEN_TYPES.component;
+      } else if (/^(onClick|className|style|button)$/.test(token)) {
+        tokenClass = TOKEN_TYPES.button;
+      }
+      
+      result += `<span class="${tokenClass}">${escapeHtml(token)}</span>`;
+      lastIndex = tokenRegex.lastIndex;
+    }
+    
+    if (lastIndex < code.length) {
+      result += `<span class="${TOKEN_TYPES.default}">${escapeHtml(code.substring(lastIndex))}</span>`;
+    }
+    
+    return result;
+  }
+
+  function escapeHtml(text) {
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  // Audio and typing functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const displayedCode = document.getElementById('displayed-code');
+    const cursor = document.getElementById('cursor');
+    const codeContainer = document.getElementById('code-container');
+    let isTyping = true;
+    let isInViewport = true;
+    let audio = new Audio('/typing.wav');
+    audio.volume = 1;
+
+    // Intersection Observer for audio control
+    const observer = new IntersectionObserver(
+      (entries) => {
+        isInViewport = entries[0].isIntersecting;
+        if (!isInViewport && !audio.paused) {
+          audio.pause();
+          audio.currentTime = 0;
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (codeContainer) {
+      observer.observe(codeContainer);
+    }
+
+    let typingInterval;
+    let snippetIndex = 0;
+    let charIndex = 0;
+    
+    function typeCode() {
+      if (snippetIndex >= CODE_SNIPPETS.length) snippetIndex = 0;
+      const snippet = CODE_SNIPPETS[snippetIndex];
+      
+      if (charIndex < snippet.length) {
+        const partialCode = snippet.substring(0, charIndex + 1);
+        displayedCode.innerHTML = highlightCode(partialCode);
+        charIndex++;
+        
+        // Play typing sound when in viewport
+        if (isInViewport && /[a-zA-Z0-9{}();<>]/.test(snippet[charIndex - 1])) {
+          if (audio.paused) {
+            audio.currentTime = 0;
+            audio.play().catch(e => console.warn('Audio play failed:', e));
+          }
+        }
+        
+        typingInterval = setTimeout(typeCode, Math.random() * 50 + 30);
+      } else {
+        isTyping = false;
+        cursor.classList.toggle('opacity-0', !isTyping);
+        setTimeout(() => {
+          isTyping = true;
+          cursor.classList.toggle('opacity-0', !isTyping);
+          charIndex = 0;
+          snippetIndex++;
+          typeCode();
+        }, 2000);
+      }
+    }
+    
+    typeCode();
+    
+    // Cleanup on page navigation
+    window.addEventListener('beforeunload', () => {
+      clearTimeout(typingInterval);
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+      observer.disconnect();
+    });
+  });
+
+
+      // Initialize Rellax with custom settings
+    document.addEventListener('DOMContentLoaded', function() {
+      var rellax = new Rellax('.rellax', {
+        speed: -2,          // Default speed
+        center: true,       // Center the parallax elements
+        round: true,        // Round pixel values
+        vertical: true,     // Enable vertical scrolling
+        horizontal: false,  // Disable horizontal scrolling
+        wrapper: null,      // Use default wrapper (window)
+        breakpoints: [576, 768, 1200] // Responsive breakpoints
+      });
+      
+      // Add smooth hover effects to buttons
+      const buttons = document.querySelectorAll('.btn-parallax');
+      buttons.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+          const x = e.offsetX;
+          const y = e.offsetY;
+          const btnWidth = btn.clientWidth;
+          const btnHeight = btn.clientHeight;
+          const moveX = (x - btnWidth/2) / 20;
+          const moveY = (y - btnHeight/2) / 20;
+          
+          btn.style.transform = `translate3d(${moveX}px, ${moveY - 5}px, 0) scale(1.02)`;
+        });
+        
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = 'translateY(-5px) scale(1.02)';
+        });
+      });
+    });
+  
+    </script>
+</body>
+</html>
