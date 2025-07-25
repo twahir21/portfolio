@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://twahirsudy.com/sitemap.xml
+
+# Disallow crawling of non-existent or irrelevant paths
+Disallow: /private/
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /assets/
+
+# No need to block CSS, JS, or images for modern SEO
+# Google needs to access these for proper rendering
