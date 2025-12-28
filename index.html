@@ -118,6 +118,10 @@
     .btn-parallax:hover {
       transform: translateY(-5px) scale(1.02);
     }
+
+    #code-container > *, .trigger-sound{
+        font-family: "Tsukimi Rounded", sans-serif;
+    }
     
     /* Smooth scrolling */
     html {
@@ -166,6 +170,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tsukimi+Rounded&display=swap" rel="stylesheet">
+
+    <!-- AOS  -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <audio id="scroll-sound" src="scroll.wav" preload="auto"></audio>
 
 </head>
@@ -185,14 +194,14 @@
         <div>
         <!-- Header with Holographic Nav -->
         <header class="flex flex-col md:flex-row justify-between items-center mb-16 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-6 md:mb-0">
+            <div class="mb-6 md:mb-0" data-aos="fade-right">
                 <h1 class="text-4xl md:text-5xl font-orbitron font-bold bg-clip-text text-transparent bg-gradient-to-r from-hologram-blue via-hologram-purple to-hologram-pink">
                     TWAHIR SUDY
                 </h1>
                 <p class="text-sm text-hologram-blue tracking-widest mt-1"> FUTURE-PROOF SOLUTIONS SINCE 2025</p>
             </div>
             
-            <nav class="flex space-x-1 bg-neu-light rounded-full p-1 border border-gray-800 shadow-lg">
+            <nav class="flex space-x-1 bg-neu-light rounded-full p-1 border border-gray-800 shadow-lg" data-aos="fade-left">
                 <button class="px-4 py-2 rounded-full bg-neu-mid text-hologram-blue font-medium text-sm tracking-wider hover:bg-gradient-to-r from-hologram-blue/20 to-hologram-purple/20 transition-all duration-300">
                     <a href="#home">HOME</a>
                 </button>
@@ -211,7 +220,7 @@
         <!-- Hero Section -->
         <section class="mb-24 relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" id="home">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="order-2 lg:order-1">
+                <div class="order-2 lg:order-1" data-aos="fade-up-right">
                     <h2 class="text-3xl md:text-5xl font-orbitron font-bold mb-6 text-white">
                         <span class="text-hologram-blue">#</span> FULLSTACK DEVELOPER
                     </h2>
@@ -236,7 +245,7 @@
                     </div>
                 </div>
                 
-                <div class="order-1 lg:order-2 relative">
+                <div class="order-1 lg:order-2 relative" data-aos="fade-down-left">
                     <!-- Holographic Avatar -->
                     <div class="relative w-full aspect-square max-w-md mx-auto">
                         <div class="absolute inset-0 bg-gradient-to-br from-hologram-blue/30 to-hologram-purple/20 rounded-2xl rotate-6"></div>
@@ -268,7 +277,7 @@
                 
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
                     <!-- Skill 1 -->
-                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30" data-aos="flip-right" data-aos-duration="1000">
                         <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
                             <img src="/qwik.webp" alt="Qwik" loading="lazy"/>
                         </div>
@@ -280,7 +289,7 @@
                     </div>
                     
                     <!-- Skill 2 -->
-                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30" data-aos="flip-right" data-aos-duration="1000">
                         <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
                             <img src="/elysia.webp" alt="Elysia" loading="lazy"/>
                         </div>
@@ -292,7 +301,7 @@
                     </div>
                     
                     <!-- Skill 3 -->
-                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30" data-aos="flip-right" data-aos-duration="1000">
                         <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
                             <img src="/Typescript.svg" alt="TypeScript" loading="lazy"/>
 
@@ -305,7 +314,7 @@
                     </div>
                     
                     <!-- Skill 4 -->
-                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30" data-aos="flip-right" data-aos-duration="1000">
                         <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
                             <img src="/drizzle.webp" alt="Drizzle-ORM" loading="lazy"/>
                         </div>
@@ -317,7 +326,7 @@
                     </div>
                     
                     <!-- Skill 5 -->
-                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30" data-aos="flip-right" data-aos-duration="1000">
                         <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
                             <img src="/react-native.webp" alt="React Native" loading="lazy"/>
                         </div>
@@ -329,7 +338,7 @@
                     </div>
 
                     <!-- Skill 6 -->
-                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30" data-aos="flip-right" data-aos-duration="1000">
                         <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
                             <img src="/flutter.svg" alt="Flutter" loading="lazy"/>
                         </div>
@@ -341,7 +350,7 @@
                     </div>
 
                     <!-- Skill 7 -->
-                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30" data-aos="flip-right" data-aos-duration="1000">
                         <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
                             <img src="/nextjs.webp" alt="Next.js" loading="lazy"/>
                         </div>
@@ -353,7 +362,7 @@
                     </div>
 
                     <!-- Skill 8 -->
-                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30" data-aos="flip-right" data-aos-duration="1000">
                         <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
                             <img src="/Python.svg" alt="Python" loading="lazy"/>
                         </div>
@@ -365,7 +374,7 @@
                     </div>
 
                     <!-- Skill 9 -->
-                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30" data-aos="flip-right" data-aos-duration="1000">
                         <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
                             <img src="/tailwindcss.webp" alt="Tailwind CSS" loading="lazy"/>
                         </div>
@@ -377,7 +386,7 @@
                     </div>
 
                     <!-- Skill 10 -->
-                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30">
+                    <div class="bg-slate-800/50 rounded-xl p-6 text-center hover:transform hover:scale-105 transition-all duration-300 border border-slate-700 hover:border-blue-400/30" data-aos="flip-right" data-aos-duration="1000">
                         <div class="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 text-2xl">
                             <img src="/ai.webp" alt="AI/ML" loading="lazy"/>
                         </div>
@@ -401,7 +410,7 @@
             
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8" data-aos="zoom-in-right" data-aos-duration="1500">
                 <!-- Project 1 -->
                 <div class="group relative overflow-hidden rounded-xl border border-slate-800 hover:border-blue-400/30 transition-all duration-500">
                     <div class="h-60 overflow-hidden">
@@ -422,7 +431,7 @@
                 </div>
                 
                 <!-- Project 2 -->
-                <div class="group relative overflow-hidden rounded-xl border border-slate-800 hover:border-blue-400/30 transition-all duration-500">
+                <div class="group relative overflow-hidden rounded-xl border border-slate-800 hover:border-blue-400/30 transition-all duration-500" data-aos="zoom-in-right" data-aos-duration="1500">
                     <div class="h-60 overflow-hidden">
                         <img src="/system.webp" alt="Project 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy"/>
                     </div>
@@ -475,7 +484,7 @@
                         <div class="flex-1 h-px bg-gradient-to-r from-gray-900 via-gray-600 to-hologram-pink/30 ml-6"></div>
                     </div>
                     
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12" data-aos="fade-up-right">
                         <div>
                             <h4 class="text-xl font-orbitron font-bold text-white mb-6">Direct Mind Link Established</h4>
                             <p class="opacity-80 mb-8 leading-relaxed">
@@ -513,7 +522,7 @@
                             </div>
                         </div>
                         
-                        <div class="bg-neu-mid/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-800">
+                        <div class="bg-neu-mid/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-800" data-aos="fade-up" data-aos-duration="1500" data-rellax-speed="2000">
                             <form class="space-y-6">
                                 <div>
                                     <label class="block text-sm font-medium mb-2 text-gray-300">YOUR NAME</label>
@@ -888,6 +897,10 @@ export const authPlugin = new Elysia()
       });
     });
   
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
     </script>
 </body>
 </html>
