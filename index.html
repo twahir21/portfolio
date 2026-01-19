@@ -619,16 +619,16 @@
                     <div class="mt-12 pt-8 border-t border-gray-800" data-aos="fade-up">
                         <h4 class="text-lg font-orbitron font-bold text-white mb-6 text-center">Alternative Connection Protocols</h4>
                         <div class="flex flex-wrap justify-center gap-6">
-                            <a href="#" class="flex flex-col items-center group" id="shareBtn">
+                            <span class="flex flex-col items-center group" id="shareBtn">
                                 <div class="w-14 h-14 rounded-full bg-neu-light/30 flex items-center justify-center mb-2 group-hover:bg-hologram-blue/20 group-hover:scale-110 transition-all duration-300 border border-gray-700 group-hover:border-hologram-blue">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 group-hover:text-hologram-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                                     </svg>
                                 </div>
-                                <span class="text-sm text-gray-400 group-hover:text-white transition-colors">Social Links</span>
-                            </a>
+                                <span class="text-sm text-gray-400 group-hover:text-white transition-colors" id="socialLink">Social Links</span>
+                            </span>
                             
-                            <a href="https://wa.me/255674291587" class="flex flex-col items-center group">
+                            <a href="https://wa.me/255674291587?text=Hello%20Twahir,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect." class="flex flex-col items-center group">
                                 <div class="w-14 h-14 rounded-full bg-neu-light/30 flex items-center justify-center mb-2 group-hover:bg-green-500/20 group-hover:scale-110 transition-all duration-300 border border-gray-700 group-hover:border-green-500">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 group-hover:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -1015,16 +1015,21 @@ export const authPlugin = new Elysia()
     <script>
 // Select the button element
   const shareBtn = document.getElementById('shareBtn');
+  const Social = document.getElementById('socialLink');
 
   // Define the share function
   const handleShare = async () => {
+    const phoneNumber = "255674291587"; 
+    const message = encodeURIComponent("Hello Twahir, I saw your portfolio!"); 
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+
     // Check if the browser supports the Web Share API
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Simamia POS",
-          text: "Check out this amazing POS system built for Tanzanian businesses!",
-          url: "https://www.linkedin.com/in/twahir-sudy", // Your LinkedIn profile link
+          title: "Twahir Portfolio",
+          text: "Contact me on WhatsApp", 
+          url: whatsappUrl
         });
         console.log("Shared successfully");
       } catch (error) {
@@ -1032,7 +1037,11 @@ export const authPlugin = new Elysia()
       }
     } else {
       // Fallback: Copy link to clipboard or show alert
-      alert("Sharing is not supported on this browser. You can copy the link manually.");
+      navigator.clipboard.writeText(whatsappUrl)
+    //   alert("Sharing is not supported on this browser. You can copy the link manually.");
+        Social.innerText = 'Copied!';
+        setTimeout(() => { Social.innerText = "Social Links" }, 3000)
+
     }
   };
 
